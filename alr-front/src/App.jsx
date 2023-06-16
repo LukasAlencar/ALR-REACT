@@ -1,11 +1,10 @@
 import { useState } from 'react'
-import PageDashBoard from './components/PageDashboard'
-
+import PageHome from './components/PageHome'
 function App() {
   const [count, setCount] = useState(0)
   return (
     <>
-      <PageDashBoard></PageDashBoard>
+      <PageHome></PageHome>
     </>
   )
 }
