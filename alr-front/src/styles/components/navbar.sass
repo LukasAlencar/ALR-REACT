@@ -1,10 +1,18 @@
+@use '../variables'
+
 .nav-item
     list-style: none
     margin-right: 15px
 
+.dropdown-menu
+    a
+        font-family: variables.$font-secondary !important
+        font-size: 15px
+
 .dropdown-menu[data-bs-popper]
     left: auto
     right: 0
+    
 .ul-nav
     width: 100%
     list-style-type: none
@@ -30,4 +38,3 @@
 
 .iconUser
     font-size: 22px
-

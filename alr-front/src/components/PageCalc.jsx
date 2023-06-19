@@ -1,8 +1,11 @@
 import Navbar from './Navbar'
+import Container from './Container'
 
 const PageCalc = () => {
     return(
-        <Navbar page='calc'></Navbar>
+        <>
+            <Container page="calc"></Container>
+        </>
     )
 }
 

@@ -3,8 +3,7 @@ import Container from "./Container";
 const PageHome = () =>{
     return(
         <>
-            <Navbar page='home'></Navbar>
-            <Container />
+            <Container page={'home'}/>
         </>
     )  
 }
