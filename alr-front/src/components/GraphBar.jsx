@@ -1,5 +1,5 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer} from 'recharts';
-import '../styles/components/graphbar.sass'
+import '../styles/components/graphBar.sass'
 
 const data = [
   { name: 'Janeiro', vendas: 4000 },
