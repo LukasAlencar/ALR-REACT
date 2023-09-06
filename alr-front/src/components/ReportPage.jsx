@@ -2,7 +2,10 @@ import React from 'react'
 
 function ReportPage() {
   return (
-    <div>ReportPage</div>
+    <>
+      <Navbar></Navbar>
+      <div>ReportPage</div>
+    </>
   )
 }
 

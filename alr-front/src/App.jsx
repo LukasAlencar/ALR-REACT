@@ -6,13 +6,13 @@ import PageDashboard from './components/PageDashboard'
 import ReportPage from './components/ReportPage'
 import MyProfilePage from './components/MyProfilePage'
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
+import PageRegister from './components/PageRegister'
 function App() {
   return (
     <>
       <Router>
-        <Navbar></Navbar>
         <Routes>
-            <Route path="/" element={<PageHome/>}/>
+            <Route path="/" element={<PageRegister/>}/>
             <Route path="/calculadora" element={<PageCalc />}/>
             <Route path="/dashboards" element={<PageDashboard />}/>
             <Route path="/my-profile" element={<MyProfilePage />}/>

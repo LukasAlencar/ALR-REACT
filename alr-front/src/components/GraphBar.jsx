@@ -8,7 +8,7 @@ const data = [
   { name: 'Abril', vendas: 2780 },
 ];
 
-const GraphBar =({programName})=>{
+const GraphBar =({ programName })=>{
     return(
     <>
       <h1>{programName}</h1>
