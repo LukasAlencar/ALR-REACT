@@ -3,12 +3,11 @@
 .container-main
     display: flex
 
-.containerRegister
+.containerLogin
     display: flex
     flex-direction: column
     height: 100vh
     width: 53%
-    overflow-y: scroll
     background-color: #fff
     flex-wrap: nowrap
 
@@ -23,10 +22,6 @@
     font-family: 'Cormorant Garamond', serif
     margin-left: -20px
     
-.welcomeField
-    justify-content: center
-    flex-wrap: wrap
-    margin-top: -45px
 
 .title
     font-family: variables.$font-title
@@ -34,32 +29,11 @@
     text-align: center
     margin-bottom: 30px
 
-.welcome
-    width: 100%
-    text-align: center
-    font-size: 60px
-    font-family: 'Bebas Neue', sans-serif
-    color: #318EAA
-
-
 .to-alr
     font-size: 20px
     font-family: 'Urbanist', sans-serif
     font-weight: bold
     text-align: center
-
-.sign-in-google-field
-    margin-top: -30px
-    display: flex
-    width: 100%
-    align-items: center
-    justify-content: center
-
-.fields-container
-    display: flex
-    flex-wrap: wrap
-    justify-content: center
-    margin-top: 10%
 
 .fields-container-step2
     display: flex
@@ -67,12 +41,12 @@
     justify-content: center
     margin-top: 10%
 
-.section
-    box-shadow: 0 0 2px black
+.section-login
     border-radius: 20px
     width: 90%
     justify-content: center
     padding: 10px
+    margin-top: 20%
 
 .fields
     display: flex
@@ -82,22 +56,19 @@
         text-align: center
         font-family: 'Cabin', sans-serif
     
-.cpus
-    -moz-appearance: textfield
-    appearance: textfield
-    -webkit-appearance: none
-
 input[type=number]::-webkit-inner-spin-button,
     input[type=number]::-webkit-outer-spin-button 
         -webkit-appearance: none
         margin: 0
 
-.containerImage
+.container-squares
     width: 50%
     height: 100vh
-    background-image: url('../../img/Image.png')
-    background-size: cover
-    background-repeat: no-repeat
+    background-image: url('../../img/FrameSquares.png')
+    background-position: center
+    background-size: 60vh
+    background-repeat: no-repeat 
+
 
 .imgLogo
     width: 120px
@@ -122,26 +93,27 @@ input[type=number]::-webkit-inner-spin-button,
     justify-content: center
     margin-bottom: 20px
 
-    .register-btn
+    .login-btn
         display: flex
         align-items: center
         justify-content: center
         text-align: center
         padding: 10px
         border-radius: 10px
-        background-color: #0078D6
-        width: 48%
-        color: #fff
+        background-color: #a4a4e45c
+        width: 83% !important
+        height: 40px
+        color: #1C1C31
         max-height: 40px
         overflow: hidden
         cursor: pointer
         font-family: 'Cabin', sans-serif
         &:hover
-            background-color: #0288ee
+            background-color: #9393ce5c
     
-    .btn-half
-        width: 22% !important
-        margin: 0 13px
+    // .btn-half
+    //     width: 22% !important
+    //     margin: 0 13px
 
 .register-btn-field
     display: flex
@@ -153,75 +125,17 @@ input[type=number]::-webkit-inner-spin-button,
         padding: 10px
         border-radius: 10px
         background-color: #0078D6
-        width: 48%
+        width: 83%
         color: #fff
         cursor: pointer
         font-family: 'Cabin', sans-serif
         &:hover
             background-color: #0288ee
-    
-    .btn-half
-        width: 22% !important
-        margin: 0 13px
 
-
-.have-account
-    text-align: center
-    margin-top: 10px
-    font-family: 'Cabin', sans-serif
-    
-    span
-        color: #5C5DE1
-        cursor: pointer
-        &:hover
-            color: #5151be
-
-.required
-    border-left: 4px solid red
 
 .label-input
     margin-bottom: 5px
-.steps
-    display: flex
-    justify-content: center
-    align-items: center
-    margin-top: 20px
 
-    .step-btn
-        font-size: 40px
-        background-color: #5e5e5e
-        width: 24px
-        height: 7px
-        border-radius: 5px
-        margin-right: 10px
-        margin-left: 10px
-
-    .active
-        background: none
-        border: 1px solid #5e5e5e
-
-.list-licenses
-    display: flex
-    flex-direction: row
-    align-items: center
-    justify-content: center
-    flex-wrap: wrap
-
-    .license-item
-        margin: 5px 10px
-        background-color: #ddd
-        padding: 10px
-        border-radius: 10px
-        
-.icon-contract
+.register-span
+    color: #5C5DE1
     cursor: pointer
-    &:hover
-        color: #2f8dc4
-
-.warning-span
-    color: red
-
-.wrong
-    border: 2px solid red
-    &::placeholder
-        color: red
