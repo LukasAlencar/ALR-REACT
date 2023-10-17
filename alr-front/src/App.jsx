@@ -21,8 +21,17 @@ function App() {
                 <Route path="/calculadora" element={<PageCalc />}/>
                 <Route path="/dashboards" element={<PageDashboard />}/>
                 <Route path="/my-profile" element={<MyProfilePage />}/>
-                <Route path="/reports" element={<ReportPage />}>
-                </Route>
+                <Route path="/reports" element={<ReportPage />}></Route>
+                <Route path="/create-contract" element={<ReportPage />}></Route>
+                <Route path="/edit-contract" element={<ReportPage />}></Route>
+                <Route path="/view-enterprise" element={<ReportPage />}></Route>
+                <Route path="/invite-users" element={<ReportPage />}></Route>
+                <Route path="/users-list" element={<ReportPage />}></Route>
+                <Route path="/create-cost-center" element={<ReportPage />}></Route>
+                <Route path="/edit-cost-center" element={<ReportPage />}></Route>
+                <Route path="/view-owners" element={<ReportPage />}></Route>
+                <Route path="/view-licensing-rule" element={<ReportPage />}></Route>
+                
             </Routes>
           </Router>
       </AnimatePresence>

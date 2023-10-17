@@ -26,7 +26,7 @@ const PageLogin = () => {
     }
 
     const handleLogin = () =>{
-        
+        navigate('/home')
     }
 
     const handleRegister = () => {
@@ -52,6 +52,11 @@ const PageLogin = () => {
                             animate={{opacity: 1, display: 'flex'}}
                             exit={{opacity: 0, display: 'none'}} className="fields-container-step2">
                                     <div className="section-login">
+                                    <div className="fields row">
+                                            <div className="col-10">
+                                                <span></span>
+                                            </div>
+                                        </div>
                                         <div className="fields row">
                                             <div className="col-10">
                                                 <label className='label-input' htmlFor="licenseName">Email</label>
@@ -61,12 +66,12 @@ const PageLogin = () => {
                                         <div className="fields row">
                                             <div className="col-10">
                                                 <label className='label-input' htmlFor="licenseName">Password</label>
-                                                <input value={data.password} onChange={e => handlePassword(e.target.value)} type="text" className={"form-control"} placeholder='*******' id="licenseName" aria-describedby="licenseName"/>
+                                                <input value={data.password} onChange={e => handlePassword(e.target.value)} type="password" className={"form-control"} placeholder='*******' id="licenseName" aria-describedby="licenseName"/>
                                             </div>
                                         </div>
                                         <div style={{flex: 1, marginTop: 20}}>
-                                            <div className="register-finish-btn-field">
-                                                <div onClick={()=>{}} className='login-btn'> Login </div>
+                                            <div className="login-finish-btn-field">
+                                                <div onClick={handleLogin} className='login-btn'> Login </div>
                                                 {/* <div className="next-step-btn"><CgPlayTrackNextR/></div> */}
                                             </div>
                                         </div>

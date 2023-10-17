@@ -16,6 +16,7 @@ const PageRegister = () => {
     const [enterprise, setEnterprise] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [profileImage, setProfileImage] = useState(null)
     const [checkRemember, setCheckRemember] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
 
@@ -31,10 +32,11 @@ const PageRegister = () => {
     // Licenses States
 
     const [licensesList, setLicenseList] = useState([])
-    const [licenseName, setlicenseName] = useState('')
+    const [licenseName, setlicenseName] = useState('default')
     const [activeDate, setActiveDate] = useState('')
     const [expirationDate, setExpirationDate] = useState('')
     const [contract, setContract] = useState(undefined)
+    const [licenseSelectList, setLicenseSelectList] = useState([])
 
 
     const [nextStep, setNextStep] = useState(false)
@@ -49,6 +51,7 @@ const PageRegister = () => {
 
     const handleRegister = async () =>{
         const user = {
+            profileImage,
             name,
             enterprise,
             email,
@@ -57,21 +60,46 @@ const PageRegister = () => {
             licensesList,
         }
 
+        const contracts = []
+        licensesList.map(licenses =>{
+            contracts.push(licenses.contract)
+        })
+
+        let data = JSON.stringify(user)
+        let blob = new Blob([data],{
+            type: 'application/json'
+        })
         const formData = new FormData();
-        formData.append('user', user);
+        formData.append('user', data);
+        contracts.map(contract => {
+            formData.append('contract[]', contract);
+        })
+
+
         setIsLoading(true)
+        
+        // await axios.post('http://localhost:3002/register', formData)        
+        //     .then(response => {
+        //         console.log(response)
+        //         navigate('/home')
+        //     }).catch(err => {
+        //         console.log(err)
+        //     }).finally(()=>{
+        //         setIsLoading(false)
+        //     })
+        
         await axios({
             method: 'POST',
-            url: 'https://jsonplaceholder.typicode.com/posts',
+            url: 'http://localhost:3002/register',
             data: formData,
             headers: {
-                'Content-Type':'multipart/form-data'
+                'Content-Type':`multipart/form-data; boundary=${formData._boundary}`
             }
         }).then(response => {
-            console.log(response)
+            // console.log(response)
             navigate('/home')
         }).catch(err => {
-            console.log(err)
+            // console.log(err)
         }).finally(()=>{
             setIsLoading(false)
         })
@@ -132,11 +160,14 @@ const PageRegister = () => {
         }
     }
 
-    const handleNext = () => {
+    const handleNext = async () => {
         let patternUpperCase = /[A-Z]/
         let patternSpecialChars = /[^a-zA-Z0-9]+/g
         let patternEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
+        await axios.get('http://localhost:3002/licenses').then((res)=>{
+            setLicenseSelectList(res.data.licenses)
+        }).catch( err => console.log(err));
 
         if(name && enterprise && patternEmail.test(email) && password.length >= 8 && patternUpperCase.test(password) && patternSpecialChars.test(password)
         ){
@@ -147,9 +178,6 @@ const PageRegister = () => {
 
     const handlePrevious = () => {
         setStep(0)
-    }
-
-    const showAlert = (text) => {
     }
 
     const handleAddLicense = () =>{
@@ -163,8 +191,7 @@ const PageRegister = () => {
                                           uuid: uuidv4()}]
                 return newArray
             })
-            setlicenseName('')
-            setContract('')
+            setlicenseName('default')
         }else{
            setIsAlert(true)
         }
@@ -181,6 +208,14 @@ const PageRegister = () => {
         setContract(file)
     }
 
+    const handleAlert = () => {
+        setIsAlert(false)
+    }
+
+    const handleProfileImage = (e) => {
+        setProfileImage(e)
+    }
+
     return (
         
             <motion.div className="container-main"
@@ -188,7 +223,7 @@ const PageRegister = () => {
                 animate={{opacity: 1}}
                 exit={{opacity: 0}}
             >
-                {isAlert && <AlertTop active={true} text={'Preencha os campos obrigatórios'}/>}
+                {isAlert && <AlertTop handleAlert={handleAlert} active={true} text={'Preencha os campos obrigatórios'}/>}
                 <div className='containerRegister row'>
                     <div className='logo'>
                         <img className='imgLogo' src={Logo} alt="ALR" />
@@ -211,7 +246,14 @@ const PageRegister = () => {
                             animate={{opacity: 1, display: 'block'}}
                             exit={{opacity: 0, display: 'none'}} 
                             className="fields-container">
-                            <div className="fields row">
+
+                                <div className="fields row">
+                                    <div className="col-6">
+                                        <label htmlFor="formFile" className="form-label">Profile Image</label>
+                                        <input onChange={e => handleProfileImage(e.target.files[0])} accept='image/*' className="form-control" type="file" id="formFile"/>
+                                    </div>
+                                </div>
+                                <div className="fields row">
                                     <div className="col-6">
                                         {!testValidate.name && <span className='warning-span'>Campo obrigatório</span>}
                                         <input value={name} onChange={e =>  handleName(e)} type="text" className={`form-control ${!testValidate.name && 'wrong'}`} placeholder='Name' id="name" aria-describedby="Name"/>
@@ -253,7 +295,7 @@ const PageRegister = () => {
                                     {/* <div className="next-step-btn"><CgPlayTrackNextR/></div> */}
                                 </div>
                                 <div className='have-account'>
-                                    Already have a account? <span>Login</span>
+                                    Already have a account? <span onClick={()=> {navigate('/')}}>Login</span>
                                 </div>
                             </motion.div>
                             :
@@ -268,7 +310,17 @@ const PageRegister = () => {
                                     <div className="fields row">
                                         <div className="col-10">
                                             <label className='label-input' htmlFor="licenseName">License Name*</label>
-                                            <input value={licenseName} onChange={e => setlicenseName(e.target.value)} type="text" className={"form-control required"} placeholder='Ex. Photoshop CS6' id="licenseName" aria-describedby="licenseName"/>
+                                            {/* <input value={licenseName} onChange={e => setlicenseName(e.target.value)} type="text" className={"form-control required"} placeholder='Ex. Photoshop CS6' id="licenseName" aria-describedby="licenseName"/> */}
+                                            <select value={licenseName} onChange={e => setlicenseName(e.target.value)} className='form-select required' name="licenes" id="licenses" defaultValue={'default'}>
+                                                <option disabled value="default">Select a license</option>
+                                            {
+                                                licenseSelectList.map(license => {
+                                                    return (
+                                                        <option key={license} value={license}>{license}</option>
+                                                    )
+                                                })  
+                                            }
+                                            </select>
                                         </div>
                                     </div>
                                     <div className="fields row">
@@ -284,7 +336,7 @@ const PageRegister = () => {
                                     <div className="fields row">
                                         <div className="col-8">
                                             <label className='label-input' htmlFor="contract">Contract*</label>
-                                            <input accept='.pdf' onChange={e => handleContract(e)} type="file" className="form-control required" placeholder='YYYY/MM/DD' id="contract" aria-describedby="Contract"/>
+                                            <input accept='.pdf' multiple name='contracts' onChange={e => handleContract(e)} type="file" className="form-control required" placeholder='YYYY/MM/DD' id="contract" aria-describedby="Contract"/>
                                         </div>
                                         <div className="col-2">
                                             <div className="register-finish-btn-field">
