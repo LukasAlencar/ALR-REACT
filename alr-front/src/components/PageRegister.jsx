@@ -356,7 +356,7 @@ const PageRegister = () => {
                                                         exit={{opacity: 0, display: 'none'}} 
                                                         key={el.uuid} className="license-item">
                                                             <div>{el.licenseName}, {el.activeDate}</div>
-                                                            <TrashIcon  uuid={el.uuid} handleClick={(e)=>handleRemoveLicense(e)} />
+                                                            <TrashIcon mt={-3} uuid={el.uuid} handleClick={(e)=>handleRemoveLicense(e)} />
                                                         </motion.div>  
                                                     </AnimatePresence>                                            
                                                 )

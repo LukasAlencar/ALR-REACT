@@ -27,9 +27,6 @@ const LeftMenu = () => {
                 <ItemSidebar itemName="Licensing Rules">
                   <SubItemSidebar linkTo='view-licensing-rules' subItemName='View' />
                 </ItemSidebar>
-                {/* <li className='li-licenses expired'>Contros de custo</li>
-                <li className='li-licenses expired'>Fabricantes</li>
-                <li className='li-licenses expired'>Regras de licenciamento</li> */}
             </ul>
         </div>
     </div>

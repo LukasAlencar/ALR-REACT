@@ -3,7 +3,7 @@ import Lottie from 'react-lottie';
 import animationData from '../assets/animations/trash.json'
 
 
-const TrashIcon = ({handleClick, uuid}) => {
+const TrashIcon = ({handleClick, uuid, mt}) => {
     // ANIMATION //
 
     const [animationState, setAnimationState] = useState({
@@ -20,10 +20,10 @@ const TrashIcon = ({handleClick, uuid}) => {
     }
 
     return (
-        <div  id={uuid} onMouseEnter={() => setAnimationState({...animationState, isStopped: false})}
+        <div title="Remove" id={uuid} onMouseEnter={() => setAnimationState({...animationState, isStopped: false})}
         onMouseOut={()=> setAnimationState({...animationState, isStopped: true, direction: -1})}
         onClick={(e)=> handleClick(e.target.id)}
-        style={{cursor: 'pointer', marginTop: -3, marginLeft: 5}}
+        style={{cursor: 'pointer', marginTop: mt, marginLeft: 5}}
             >
                 <Lottie options={defaultOptions}
                     style={{pointerEvents: 'none'}}

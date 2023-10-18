@@ -12,7 +12,6 @@ const ItemSidebar = ({children, itemName, linkTo}) => {
             <li onClick={()=>setIsShow(!isShow)} className='item_menu_left'>{itemName} { isShow ? <AiOutlineUp style={{marginLeft: 10}} fontSize={15}/> : <AiOutlineDown style={{marginLeft: 10}} fontSize={15}/>}</li>
             <AnimatePresence>
                 {(isShow && children) && Children.map(children, (child, index) => {
-                    console.log('veio')
                     return (
                             <motion.div
                             initial={{opacity: 0, height: 0}}

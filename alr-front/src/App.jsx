@@ -9,6 +9,8 @@ import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 import PageRegister from './components/PageRegister'
 import { AnimatePresence } from 'framer-motion'
 import PageLogin from './components/PageLogin'
+import CreateContracts from './components/pages/CreateContracts'
+import EditContracts from './components/pages/EditContracts'
 function App() {
   return (
     <>
@@ -22,8 +24,8 @@ function App() {
                 <Route path="/dashboards" element={<PageDashboard />}/>
                 <Route path="/my-profile" element={<MyProfilePage />}/>
                 <Route path="/reports" element={<ReportPage />}></Route>
-                <Route path="/create-contract" element={<ReportPage />}></Route>
-                <Route path="/edit-contract" element={<ReportPage />}></Route>
+                <Route path="/create-contract" element={<CreateContracts />}></Route>
+                <Route path="/edit-contract" element={<EditContracts />}></Route>
                 <Route path="/view-enterprise" element={<ReportPage />}></Route>
                 <Route path="/invite-users" element={<ReportPage />}></Route>
                 <Route path="/users-list" element={<ReportPage />}></Route>
@@ -31,7 +33,6 @@ function App() {
                 <Route path="/edit-cost-center" element={<ReportPage />}></Route>
                 <Route path="/view-owners" element={<ReportPage />}></Route>
                 <Route path="/view-licensing-rule" element={<ReportPage />}></Route>
-                
             </Routes>
           </Router>
       </AnimatePresence>

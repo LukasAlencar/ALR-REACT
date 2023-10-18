@@ -11,7 +11,7 @@ const Navbar = () => {
     return(
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
-                <Link to="/">
+                <Link to="/home">
                     <a onClick={() => { setPage('Home')}} className="navbar-brand a-logo" href="#"><img className='img-logo' src={Logo} alt="Home" /><div className="logoName">ALR</div></a>
                 </Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

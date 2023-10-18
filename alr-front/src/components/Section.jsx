@@ -5,18 +5,12 @@ import ListLicenses from './ListLicenses'
 const Section = () => {
 
     const list = [
-        {qtd: 1, name:'Photoshop', owner:'Adobe', expirationDate: '24/01/2024', uuid: 'xxxxxxxxxxxxxxxx'},
-        {qtd: 1, name:'Photoshop', owner:'Adobe', expirationDate: '24/01/2024', uuid: '1xxxxxxxxxxxxxxx'},
-        {qtd: 1, name:'Photoshop', owner:'Adobe', expirationDate: '24/01/2024', uuid: '3xxxxxxxxxxxxxxx'},
-        {qtd: 1, name:'Photoshop', owner:'Adobe', expirationDate: '24/01/2024', uuid: '4xxxxxxxxxxxxxxx'},
-        {qtd: 1, name:'Photoshop', owner:'Adobe', expirationDate: '24/01/2024', uuid: '5xxxxxxxxxxxxxxx'},
-        {qtd: 1, name:'Photoshop', owner:'Adobe', expirationDate: '24/01/2024', uuid: '6xxxxxxxxxxxxxxx'},
-        {qtd: 1, name:'Photoshop', owner:'Adobe', expirationDate: '24/01/2024', uuid: '7xxxxxxxxxxxxxxx'},
-        {qtd: 1, name:'Photoshop', owner:'Adobe', expirationDate: '24/01/2024', uuid: '8xxxxxxxxxxxxxxx'},
-        {qtd: 1, name:'Photoshop', owner:'Adobe', expirationDate: '24/01/2024', uuid: '9xxxxxxxxxxxxxxx'},
-        {qtd: 1, name:'Photoshop', owner:'Adobe', expirationDate: '24/01/2024', uuid: '0xxxxxxxxxxxxxxx'},
-        {qtd: 1, name:'Photoshop', owner:'Adobe', expirationDate: '24/01/2024', uuid: '12xxxxxxxxxxxxxx'},
-        {qtd: 1, name:'Photoshop', owner:'Adobe', expirationDate: '24/01/2024', uuid: '13xxxxxxxxxxxxxx'},
+        {qtd: 1, name:'Photoshop', owner:'Adobe', expirationDate: '20/10/2023', uuid: 'xxxxxxxxxxxxxxxx'},
+        {qtd: 1, name:'Photoshop', owner:'Adobe', expirationDate: '16/10/2023', uuid: '1xxxxxxxxxxxxxxx'},
+        {qtd: 1, name:'Photoshop', owner:'Adobe', expirationDate: '24/10/2024', uuid: '3xxxxxxxxxxxxxxx'},
+        {qtd: 1, name:'Photoshop', owner:'Adobe', expirationDate: '18/10/2023', uuid: '4xxxxxxxxxxxxxxx'},
+        {qtd: 1, name:'Photoshop', owner:'Adobe', expirationDate: '03/10/2023', uuid: '5xxxxxxxxxxxxxxx'},
+        {qtd: 1, name:'Photoshop', owner:'Adobe', expirationDate: '29/10/2024', uuid: '6xxxxxxxxxxxxxxx'},
 
     ]
 
