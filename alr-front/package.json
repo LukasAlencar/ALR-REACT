@@ -21,6 +21,7 @@
     "axios": "^1.5.0",
     "date-fns": "^2.30.0",
     "framer-motion": "^10.16.4",
+    "jwt-decode": "^4.0.0",
     "node-sass": "^9.0.0",
     "pdfjs-dist": "^2.15.349",
     "primereact": "^9.6.2",

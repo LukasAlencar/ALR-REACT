@@ -1,31 +1,32 @@
 import Container from "./Container";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import Navbar from "./Navbar";
-import {motion} from "framer-motion"
+import { motion } from "framer-motion"
 import LeftMenu from "./LeftMenu";
 import Section from "./Section";
+import { Context } from "../context/AuthContext";
 
-const PageHome = () =>{
-    // const schedules = useLoadData();
 
-    useEffect(()=>{
-        // console.log(schedules)
-    },[])
+const PageHome = () => {
 
-    return(
+    const { isAuth } = useContext(Context)
+
+    return (
+
         <motion.div
-            initial={{opacity: 0}}
-            animate={{opacity: 1}}
-            exit={{opacity: 0}}
-            style={{display: "flex", height: "100vh", flexDirection: "column"}}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            style={{ display: "flex", height: "100vh", flexDirection: "column" }}
         >
             <Navbar></Navbar>
             <div className="flex-container-menu-left">
-                <LeftMenu/>
-                <Section/>
+                <LeftMenu />
+                <Section />
             </div>
         </motion.div>
-    )  
+
+    )
 }
 
 export default PageHome

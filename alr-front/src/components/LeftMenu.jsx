@@ -14,14 +14,13 @@ const LeftMenu = () => {
                 </ItemSidebar>
                 <ItemSidebar itemName="Enterprise">
                   <SubItemSidebar linkTo='view-enterprise' subItemName='View' />
-                  <SubItemSidebar linkTo='invite-users' subItemName='Invite Users' />
                   <SubItemSidebar linkTo='users-list' subItemName='Users List' />              
                 </ItemSidebar>
                 <ItemSidebar itemName="Cost Center">
                   <SubItemSidebar linkTo='create-cost-center' subItemName='Create' />
                   <SubItemSidebar linkTo='edit-cost-center' subItemName='Edit' />
                 </ItemSidebar>
-                <ItemSidebar itemName="Owners">
+                <ItemSidebar itemName="Manufactures">
                   <SubItemSidebar linkTo='create-owners' subItemName='View' />
                 </ItemSidebar>
                 <ItemSidebar itemName="Licensing Rules">

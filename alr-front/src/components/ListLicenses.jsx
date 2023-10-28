@@ -9,11 +9,10 @@ const ListLicenses = ({ datas }) => {
     const [notExpired, setNotExpired] = useState([]);
     const [expiring, setExpiring] = useState([]);
 
-
     useEffect(() => {
-        let notExpired = datas.filter(el => verifyDate(el.expirationDate) == 'expired')
-        let expired = datas.filter(el => verifyDate(el.expirationDate) == 'not-expired')
-        let expiring = datas.filter(el => verifyDate(el.expirationDate) == 'expiring')
+        let notExpired = datas.filter(el => verifyDate(el.end_date) == 'expired')
+        let expired = datas.filter(el => verifyDate(el.end_date) == 'not-expired')
+        let expiring = datas.filter(el => verifyDate(el.end_date) == 'expiring')
 
         setExpired(expired)
         setNotExpired(notExpired)
@@ -21,10 +20,10 @@ const ListLicenses = ({ datas }) => {
     }, [])
 
     const verifyDate = (dateString) => {
-        let parts = dateString.split('/');
-        let day = parseInt(parts[0], 10);
+        let parts = dateString.split('-');
+        let day = parseInt(parts[2], 10);
         let month = parseInt(parts[1], 10) - 1; // Subtrair 1 do mês (0 a 11)
-        let year = parseInt(parts[2], 10);
+        let year = parseInt(parts[0], 10);
         let today = new Date()
         let expirationDate = new Date(year, month, day)
         const tenDays = 10 * 24 * 60 * 60 * 1000;
@@ -41,6 +40,7 @@ const ListLicenses = ({ datas }) => {
         }
     }
 
+    if(datas.length > 0) {
     return (
         <>
             <GroupLicenses Gtitle="Actives">
@@ -55,6 +55,9 @@ const ListLicenses = ({ datas }) => {
 
         </>
     )
+    }else{
+        return <h1>Loading</h1>
+    }
 }
 
 export default ListLicenses

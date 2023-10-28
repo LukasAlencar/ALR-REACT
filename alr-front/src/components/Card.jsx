@@ -7,7 +7,6 @@ import Calculator from './Calculator'
 import { useState } from 'react'
 
 import '../styles/components/card.sass'
-import PieChart from './PieChartCard'
 
 
 const Card =({cardName})=>{
@@ -40,7 +39,6 @@ const Card =({cardName})=>{
         }else if(cardName == 'VMware'){
             return(
                 <>
-                    <PieChart />
                 </>
             )
         }else if(cardName == 'calculator'){
