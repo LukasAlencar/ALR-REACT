@@ -5,7 +5,7 @@ import TrashIcon from './TrashIcon'
 import { BsPencil } from 'react-icons/bs'
 import axios from 'axios'
 import { AiOutlineCheck } from 'react-icons/ai'
-import { HiXMark } from 'react-icons/hi2'
+import { HiXMark, HiOutlinePencilSquare } from 'react-icons/hi2'
 import { Co2Sharp } from '@mui/icons-material'
 
 const RowCustom = ({ datas, handleRemoveLicense, setIsLoading }) => {
@@ -24,14 +24,25 @@ const RowCustom = ({ datas, handleRemoveLicense, setIsLoading }) => {
 
     const [listAdd, setListAdd] = useState(
         {
-            product: datas.name,
-            contract: datas.contract,
+            product: '',
+            contract: '',
             status: 'True',
-            activateDate: datas.start_date,
-            expirationDate: datas.end_date,
+            activateDate: '',
+            expirationDate: '',
 
         }
     )
+
+    const downloadContract = (file) => {
+        const a = document.createElement('a');
+        a.href = file;
+        a.target = '_blank';
+        a.download = file.name;
+        document.body.appendChild(a);
+        a.click();
+        URL.revokeObjectURL(file);
+    }
+    
 
     const handleSaveLicense = async () => {
         setIsLoading(true);
@@ -55,7 +66,7 @@ const RowCustom = ({ datas, handleRemoveLicense, setIsLoading }) => {
     }
 
     useEffect(()=>{
-        console.log(datas)
+
     },[])
 
     function getApi() {
@@ -69,6 +80,18 @@ const RowCustom = ({ datas, handleRemoveLicense, setIsLoading }) => {
             .finally(() => setIsLoading(false))
     }
 
+    const handleToggleEdit=(val)=>{
+        setListAdd(        
+            {
+                product: datas.name,
+                contract: datas.contract,
+                status: 'True',
+                activateDate: datas.start_date,
+                expirationDate: datas.end_date,
+    
+            })
+        setIsEdit(val)
+    }
 
     if (isEdit) {
         return (
@@ -82,7 +105,7 @@ const RowCustom = ({ datas, handleRemoveLicense, setIsLoading }) => {
                 <TableCell align="center">
                     <div className='d-flex flex-1 justify-content-between'>
                         <button onClick={handleSaveLicense} style={{ maxWidth: 100 }} className='btn btn-success'><AiOutlineCheck /></button>
-                        <button onClick={() => setIsEdit(false)} style={{ maxWidth: 100 }} className='btn btn-danger'><HiXMark /></button>
+                        <button onClick={() => handleToggleEdit(false)} style={{ maxWidth: 100 }} className='btn btn-danger'><HiXMark /></button>
                     </div>
                 </TableCell>
 
@@ -104,9 +127,9 @@ const RowCustom = ({ datas, handleRemoveLicense, setIsLoading }) => {
                 <TableCell align="center">{datas.start_date}</TableCell>
                 <TableCell align="center">{datas.end_date}</TableCell>
                 <TableCell align="center">
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <BsPencil className='mt-1' onClick={() => setIsEdit(true)} />
-                        <TrashIcon width={20} uuid={datas.id} handleClick={() => handleRemoveLicense(datas.id)} />
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <HiOutlinePencilSquare className='pencil' onClick={() => handleToggleEdit(true)} />
+                        <TrashIcon width={20} mt={0} uuid={datas.id} handleClick={() => handleRemoveLicense(datas.id)} />
                     </div>
                 </TableCell>
             </TableRow>
