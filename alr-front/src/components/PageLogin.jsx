@@ -15,7 +15,7 @@ import { Context } from '../context/AuthContext'
 
 const PageLogin = () => {
 
-    const { isAuth, setIsAuth } = useContext(Context)
+    const { isAuth, setIsAuth, setUserLogged } = useContext(Context)
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -41,11 +41,10 @@ const PageLogin = () => {
         await axios.post('https://api.alrtcc.com/login/', formData)
         .then((res) => {
             setIsAuth(true)
-            const decodedToken = jwtDecode(res.data.token);
-            console.log(decodedToken)
-            localStorage.setItem('token', decodedToken.key)
-            
-            console.log(res.data)
+            const userLogged = jwtDecode(res.data.token)
+            const decodedToken = userLogged.key
+            localStorage.setItem('token', decodedToken)
+            localStorage.setItem('email', userLogged.email)        
             navigate('/home')
         })
         .catch((err) => console.log(err))

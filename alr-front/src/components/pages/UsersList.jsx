@@ -45,8 +45,8 @@ import { Context } from '../../context/AuthContext';
 
 const UsersList = () => {
 
-  const { token } = useContext(Context)
-  console.log(token)
+  const { token} = useContext(Context)
+  const userLogged = localStorage.getItem('email')
   const apiALR = createAxiosInstance(token)
 
   useEffect(() => {
@@ -163,10 +163,14 @@ const UsersList = () => {
                 <TableCell align="center">Name</TableCell>
                 <TableCell align="center">E-mail</TableCell>
                 <TableCell align="center">Status</TableCell>
-                <TableCell align="center">Actions</TableCell>
+                {userLogged == 'lucas@email.com' && <TableCell align="center">Actions</TableCell>}
+                
               </TableRow>
             </TableHead>
             <TableBody>
+
+              {userLogged == 'lucas@email.com' && 
+              
               <TableRow
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
@@ -175,9 +179,8 @@ const UsersList = () => {
                 <TableCell align="center"><input onChange={handleChange} value={user.email} name='email' className='form-control text-center' type="text" /></TableCell>
                 <TableCell align="center">--</TableCell>
                 <TableCell align="center"><button onClick={handleAddUser} className='btn btn-primary'>Add +</button></TableCell>
-
-
-              </TableRow>
+              </TableRow>}
+              
               {rows.slice().reverse()?.map((row) => (
                 <TableRow
                   key={row.id}
@@ -190,7 +193,8 @@ const UsersList = () => {
 
                   <TableCell align="center">{row.email}</TableCell>
                   <TableCell align="center">{row.status == 'invited' ? <LiaClockSolid fontSize={20} title='Invited' color='orange' /> : <AiOutlineCheck fontSize={20} title='Accepted' color='green' />}</TableCell>
-                  <TableCell align="center"><TrashIcon uuid={row.id} handleClick={() => handleDeleteUser(row.id)} /></TableCell>
+                  {userLogged== 'lucas@email.com' && <TableCell align="center"><TrashIcon uuid={row.id} handleClick={() => handleDeleteUser(row.id)} /></TableCell>}
+                  
                 </TableRow>
               ))}
             </TableBody>

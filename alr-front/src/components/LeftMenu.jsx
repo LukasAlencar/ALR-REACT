@@ -10,7 +10,6 @@ const LeftMenu = () => {
             <ul>
                 <ItemSidebar itemName="Contracts">
                   <SubItemSidebar linkTo='create-contract' subItemName='Create' />
-                  <SubItemSidebar linkTo='edit-contract' subItemName='Edit' />
                 </ItemSidebar>
                 <ItemSidebar itemName="Enterprise">
                   <SubItemSidebar linkTo='view-enterprise' subItemName='View' />

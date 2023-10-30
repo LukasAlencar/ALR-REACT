@@ -14,6 +14,8 @@ import EditContracts from './components/pages/EditContracts'
 import UsersList from './components/pages/UsersList'
 import { AuthProvider, Context } from './context/AuthContext'
 import PrivateRoute from './components/PrivateRoute'
+import CostCenter from './components/pages/CostCenter'
+import ViewEnterprise from './components/pages/ViewEnterprise'
 
 
 function App() {
@@ -62,7 +64,7 @@ function App() {
               </PrivateRoute>}></Route>
             <Route path="/view-enterprise" element={
               <PrivateRoute>
-                <ReportPage />
+                <ViewEnterprise />
               </PrivateRoute>}></Route>
             <Route path="/invite-users" element={
               <PrivateRoute>
@@ -74,7 +76,7 @@ function App() {
               </PrivateRoute>}></Route>
             <Route path="/create-cost-center" element={
               <PrivateRoute>
-                <ReportPage />
+                <CostCenter />
               </PrivateRoute>}></Route>
             <Route path="/edit-cost-center" element={
               <PrivateRoute>

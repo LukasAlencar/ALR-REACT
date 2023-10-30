@@ -43,7 +43,7 @@ const GridComponent = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [licensesList, setLicensesList] = useState(
         [{
-            name: "",
+            name: 'default',
             file: "",
             cost_center: "",
             status: true,
@@ -139,6 +139,23 @@ const GridComponent = () => {
         getApi();
     }
 
+    const products = [
+        { productName: 'Photoshop 2008' },
+        { productName: 'Photoshop 2010' },
+        { productName: 'Photoshop 2012' },
+        { productName: 'Photoshop 2016' },
+        { productName: 'Photoshop 2020' },
+        { productName: 'Photoshop CS6' },
+        { productName: 'Photoshop CC' },
+        { productName: 'VCenter' },
+        { productName: 'VSphere' },
+        { productName: 'VMware Workstation' },
+        { productName: 'Windows 7' },
+        { productName: 'Windows 8' },
+        { productName: 'Windows 10' },
+        { productName: 'Windows 11' },
+    ]
+
     return (
         <>
             {isLoading && <>
@@ -162,7 +179,14 @@ const GridComponent = () => {
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <TableCell align="center"><input onChange={handleFileChange} type="file" accept='application/pdf' className='form-control' /></TableCell>
-                            <TableCell><input value={listAdd.product} onChange={handleChange} name='product' className='form-control text-center' type="text" /></TableCell>
+                            <TableCell>
+                                <select value={listAdd.product} onChange={handleChange} name='product' className='form-select text-center' >
+                                    <option disabled value="default">Select Product</option>
+                                    {products?.map((product) => {
+                                        return <option value={product.productName}>{product.productName}</option>
+                                    })}
+                                </select>
+                            </TableCell>
                             <TableCell align="center"><input onChange={handleChange} value={listAdd.activateDate} name='activateDate' className='form-control text-center' type="date" /></TableCell>
                             <TableCell align="center"><input onChange={handleChange} value={listAdd.expirationDate} name='expirationDate' className='form-control text-center' type="date" /></TableCell>
                             <TableCell align="center"><button onClick={handleAddLicense} style={{ width: 100 }} className='btn btn-primary'>Add +</button></TableCell>
@@ -170,7 +194,7 @@ const GridComponent = () => {
 
                         </TableRow>
                         {licensesList?.slice().reverse()?.map((license) => (
-                            <RowCustom setIsLoading={setIsLoading} handleRemoveLicense={(e)=>{handleRemoveLicense(e)}} datas={license}/>
+                            <RowCustom products={products} setIsLoading={setIsLoading} setLicensesList={setLicensesList} handleRemoveLicense={(e) => { handleRemoveLicense(e) }} datas={license} />
                         ))}
                     </TableBody>
                 </Table>
@@ -178,74 +202,6 @@ const GridComponent = () => {
 
 
         </>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // <Grid
-        // sx={{
-        //     '--Grid-borderWidth': '1px',
-        //     borderTop: 'var(--Grid-borderWidth) solid',
-        //     borderLeft: 'var(--Grid-borderWidth) solid',
-        //     borderColor: 'divider',
-        //     '& > div': {
-        //       borderRight: 'var(--Grid-borderWidth) solid',
-        //       borderBottom: 'var(--Grid-borderWidth) solid',
-        //       borderColor: 'divider',
-        //     },
-        //   }}
-        //   style={{maxWidth: '90%', maxHeight: '90%', overflowY: 'scroll'}}
-        //   container spacing={0}>
-        //     <Grid xs={3}>
-        //         <div className='text-center p-2'>Product</div>
-        //     </Grid>
-        //     <Grid xs={3}>
-        //         <div className='text-center p-2'>Activate Date</div>
-        //     </Grid>
-        //     <Grid xs={3}>
-        //         <div className='text-center p-2'>Expirate Date</div>
-        //     </Grid>
-        //     <Grid xs={3}>
-        //         <div className='text-center p-2'>Actions</div>
-        //     </Grid>
-        //     {list != '' && 
-        //         <>
-        //             {list.map(el => {
-        //                 return (
-        //                     <>
-        //                         <Grid xs={3}>
-        //                         <div className='text-center p-2'>{el.licenseName}</div>
-        //                         </Grid>
-        //                         <Grid xs={3}>
-        //                             <div className='text-center p-2'>{el.activeDate}</div>
-        //                         </Grid>
-        //                         <Grid xs={3}>
-        //                             <div className='text-center p-2'>{el.expirationDate}</div>
-        //                         </Grid>
-        //                         <Grid xs={3}>
-        //                             <div className='text-center d-flex justify-content-center p-2'>
-        //                                 <LiaFileContractSolid title='Download Contract' className='link' onClick={()=>downloadContract(el.contract)}/> 
-        //                                 <TrashIcon mt={-2} style={{marginTop: "-1px !important"}} uuid={el.uuid} handleClick={(e)=>handleRemoveLicense(e)} />
-        //                             </div>
-
-        //                         </Grid>     
-        //                     </>                           
-        //                 )
-        //             })}
-        //         </>
-        //     }
-
-        // </Grid>
     )
 }
 

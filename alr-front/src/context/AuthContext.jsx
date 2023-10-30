@@ -8,6 +8,7 @@ export const AuthProvider = ({ children }) => {
     const [isAuth, setIsAuth] = useState(false)
     const [loading, setIsLoading] = useState(true)
     const [token, setToken] = useState('')
+
     const navigate = useNavigate()
 
     const getApi = async (auxToken) =>{
@@ -25,11 +26,8 @@ export const AuthProvider = ({ children }) => {
         const auxToken = localStorage.getItem('token');
         setToken(auxToken)
 
-
         getApi(auxToken)
         
-        
-
         setIsLoading(false)
     }, [])
 
@@ -54,7 +52,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     return (
-        <Context.Provider value={{ isAuth, setIsAuth, token }}>
+        <Context.Provider value={{ isAuth, setIsAuth, token, }}>
             {children}
         </Context.Provider>
     )
