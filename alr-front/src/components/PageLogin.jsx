@@ -15,7 +15,7 @@ import { Context } from '../context/AuthContext'
 
 const PageLogin = () => {
 
-    const { isAuth, setIsAuth, setUserLogged } = useContext(Context)
+    const { isAuth, setIsAuth, setUserLogged, handleActualUser } = useContext(Context)
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -39,16 +39,18 @@ const PageLogin = () => {
         formData.append('email', data.email)
         formData.append('password', data.password)
         await axios.post('https://api.alrtcc.com/login/', formData)
-        .then((res) => {
-            setIsAuth(true)
-            const userLogged = jwtDecode(res.data.token)
-            const decodedToken = userLogged.key
-            localStorage.setItem('token', decodedToken)
-            localStorage.setItem('email', userLogged.email)        
-            navigate('/home')
-        })
-        .catch((err) => console.log(err))
-        .finally(()=>{setIsLoading(false)});
+            .then((res) => {
+                setIsAuth(true)
+                const userLogged = jwtDecode(res.data.token)
+                const decodedToken = userLogged.key
+                localStorage.setItem('token', decodedToken)
+                localStorage.setItem('email', userLogged.email)
+                handleActualUser(decodedToken)
+                setUserLogged(userLogged)
+                navigate('/home')
+            })
+            .catch((err) => console.log(err))
+            .finally(() => { setIsLoading(false) });
 
     }
 

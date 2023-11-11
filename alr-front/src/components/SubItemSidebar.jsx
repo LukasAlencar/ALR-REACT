@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const SubItemSidebar = ({subItemName, linkTo}) => {
   return (
     <Link to={"../" + linkTo}>
-      <div className='sub-item-name'>{subItemName}</div>
+      {subItemName && <div className='sub-item-name'>{subItemName}</div>} 
     </Link>
   )
 }

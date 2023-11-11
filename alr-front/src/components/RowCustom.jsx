@@ -143,7 +143,7 @@ const RowCustom = ({ datas, handleRemoveLicense, setIsLoading, setLicensesList, 
                 <TableCell align="center">
                     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                         {userLogged == 'lucas@email.com' && <HiOutlinePencilSquare className='pencil' onClick={() => handleToggleEdit(true)} />}
-                        <TrashIcon width={20} mt={0} uuid={datas.id} handleClick={() => handleRemoveLicense(datas.id)} />
+                        {userLogged == 'lucas@email.com' ? <TrashIcon width={20} mt={0} uuid={datas.id} handleClick={() => handleRemoveLicense(datas.id)} /> : <>--</>}
                     </div>
                 </TableCell>
             </TableRow>

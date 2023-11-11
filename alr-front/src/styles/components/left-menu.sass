@@ -4,11 +4,13 @@
     display: flex
     flex: 1
     height: 100%
-    width: 15%
+    width: 15vw
     background-color: #F8F9FA
     justify-content: center
     align-items: center
-
+    position: fixed
+    top: 0
+    z-index: 3
 
 .item_menu_left
     display: flex
@@ -18,8 +20,11 @@
     font-family: variables.$font-primary
     text-align: start
     cursor: pointer
+    color: black
+
     &:hover
         background: #f1f1f1
+        color: black
 // .li-licenses
 //     margin: 100% 0
 //     font-size: 1.5rem
@@ -27,6 +32,6 @@
 
 .expiring
     color: #788011
-    
+
 .expired
     color: #af4141

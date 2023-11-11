@@ -1,15 +1,24 @@
 import axios from 'axios'
 import React, { createContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-
+import  createAxiosInstance  from '../settings/AxiosSettings'
 export const Context = createContext()
 
 export const AuthProvider = ({ children }) => {
     const [isAuth, setIsAuth] = useState(false)
     const [loading, setIsLoading] = useState(true)
     const [token, setToken] = useState('')
-
+    const [userLogged, setUserLogged] = useState('')
+    const [actualUser, setActualUser] = useState(
+        {name:'', email:'', img_user:'',}
+    )
+    
     const navigate = useNavigate()
+
+    const handleActualUser = async (token) =>{
+        getApi(token)
+        
+    }
 
     const getApi = async (auxToken) =>{
         let formData = new FormData()
@@ -17,9 +26,14 @@ export const AuthProvider = ({ children }) => {
 
         await axios.post('https://api.alrtcc.com/verify-token/', formData).then(res => {
             setIsAuth(true)
+            localStorage.setItem('userName', res.data.data.user.name)
+            localStorage.setItem('email', res.data.data.user.email)
+            localStorage.setItem('userImg', res.data.data.user.img_user)
+
+            console.log(res.data.data.user)
             navigate('/home')
         })
-        .catch(err => console.log(err))
+        .catch(()=>{})
     }
 
     useEffect(() => {
@@ -27,6 +41,7 @@ export const AuthProvider = ({ children }) => {
         setToken(auxToken)
 
         getApi(auxToken)
+        console.log('foi')
         
         setIsLoading(false)
     }, [])
@@ -52,7 +67,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     return (
-        <Context.Provider value={{ isAuth, setIsAuth, token, }}>
+        <Context.Provider value={{ isAuth, setIsAuth, token, userLogged, setUserLogged, actualUser, handleActualUser}}>
             {children}
         </Context.Provider>
     )

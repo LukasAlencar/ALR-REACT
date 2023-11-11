@@ -92,7 +92,7 @@ const CreateContracts = () => {
             <div className='d-flex flex-1'>
                 <ModalALR handleDiscard={() => handleDiscard()} open={modal} toggleModal={() => handleToggleModal()} />
                 <LeftMenu />
-                <div className='section-list-contracts'>
+                <div style={{ marginTop: '8vh', marginLeft: '15vw' }} className='section-list-contracts'>
                     <GridComponent handleRemoveLicense={(e) => handleRemoveLicense(e)} list={licensesList} />
                     {/* {licensesList != '' && 
                 <div className="list-licenses">

@@ -22,7 +22,10 @@ const PageHome = () => {
             <Navbar></Navbar>
             <div className="flex-container-menu-left">
                 <LeftMenu />
-                <Section />
+                <div className="d-flex flex-1 justify-content-center" style={{ margin: '5vw 0vh 0px 10vw' }}>
+
+                    <Section />
+                </div>
             </div>
         </motion.div>
 

@@ -45,7 +45,7 @@ import { Context } from '../../context/AuthContext';
 
 const UsersList = () => {
 
-  const { token} = useContext(Context)
+  const { token } = useContext(Context)
   const userLogged = localStorage.getItem('email')
   const apiALR = createAxiosInstance(token)
 
@@ -100,14 +100,15 @@ const UsersList = () => {
     formData.append('email', user.email)
     formData.append('img_user', user.img_user)
     formData.append('password', passAleatorio)
-    
+    formData.append('cargo', 'Colaborador')
+
     console.log(user)
     await apiALR.post('https://api.alrtcc.com/register/', formData)
-    .then(res => console.log(res))
-    .catch((err) => console.log(err))
-    .finally(()=>{
-      setIsLoading(false)
-    })
+      .then(res => console.log(res))
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setIsLoading(false)
+      })
 
     const res = await apiALR.get('https://api.alrtcc.com/users/?format=json');
     setRows(res.data)
@@ -155,7 +156,7 @@ const UsersList = () => {
           </div>
         </div> */}
 
-        <TableContainer style={{ width: '85%' }} component={Paper}>
+        <TableContainer style={{ marginTop: '8vh', marginLeft: '15vw' }} component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -164,39 +165,45 @@ const UsersList = () => {
                 <TableCell align="center">E-mail</TableCell>
                 <TableCell align="center">Status</TableCell>
                 {userLogged == 'lucas@email.com' && <TableCell align="center">Actions</TableCell>}
-                
+
               </TableRow>
             </TableHead>
             <TableBody>
 
-              {userLogged == 'lucas@email.com' && 
-              
-              <TableRow
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell align="center"><input onChange={handleFileChange} type="file" accept='image/jpeg, image/png' className='form-control' /></TableCell>
-                <TableCell><input value={user.name} onChange={handleChange} name='name' className='form-control text-center' type="text" /></TableCell>
-                <TableCell align="center"><input onChange={handleChange} value={user.email} name='email' className='form-control text-center' type="text" /></TableCell>
-                <TableCell align="center">--</TableCell>
-                <TableCell align="center"><button onClick={handleAddUser} className='btn btn-primary'>Add +</button></TableCell>
-              </TableRow>}
-              
-              {rows.slice().reverse()?.map((row) => (
+              {userLogged == 'lucas@email.com' &&
+
                 <TableRow
-                  key={row.id}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
-                  <TableCell align='center'><img className='user-img-table' src={row.img_user} alt="" /></TableCell>
-                  <TableCell align="center">
-                    {row.name}
-                  </TableCell>
+                  <TableCell align="center"><input onChange={handleFileChange} type="file" accept='image/jpeg, image/png' className='form-control' /></TableCell>
+                  <TableCell><input value={user.name} onChange={handleChange} name='name' className='form-control text-center' type="text" /></TableCell>
+                  <TableCell align="center"><input onChange={handleChange} value={user.email} name='email' className='form-control text-center' type="text" /></TableCell>
+                  <TableCell align="center">--</TableCell>
+                  <TableCell align="center"><button onClick={handleAddUser} className='btn btn-primary'>Add +</button></TableCell>
+                </TableRow>}
 
-                  <TableCell align="center">{row.email}</TableCell>
-                  <TableCell align="center">{row.status == 'invited' ? <LiaClockSolid fontSize={20} title='Invited' color='orange' /> : <AiOutlineCheck fontSize={20} title='Accepted' color='green' />}</TableCell>
-                  {userLogged== 'lucas@email.com' && <TableCell align="center"><TrashIcon uuid={row.id} handleClick={() => handleDeleteUser(row.id)} /></TableCell>}
-                  
-                </TableRow>
-              ))}
+              {rows.slice().reverse()?.map((row) => {
+                console.log(row)
+
+                return (
+                  <TableRow
+                    key={row.id}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  >
+                    <TableCell align='center'><img className='user-img-table' src={row.img_user} alt="" /></TableCell>
+                    <TableCell align="center">
+                      {row.name}
+                    </TableCell>
+
+                    <TableCell align="center">{row.email}</TableCell>
+                    <TableCell align="center">{row.status == false ? <LiaClockSolid fontSize={20} title='Invited' color='orange' /> : <AiOutlineCheck fontSize={20} title='Accepted' color='green' />}</TableCell>
+                    {userLogged == 'lucas@email.com' && <TableCell align="center"><TrashIcon uuid={row.id} handleClick={() => handleDeleteUser(row.id)} /></TableCell>}
+
+                  </TableRow>
+                )
+              }
+
+              )}
             </TableBody>
           </Table>
         </TableContainer>

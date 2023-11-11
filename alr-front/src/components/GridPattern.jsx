@@ -6,29 +6,56 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import RowCustom from './RowCustom';
+import RowCustomPattern from './RowCustomPattern';
 
-const GridPattern = ({ component, listHeaderItems, addRows, handleAddRow, listBodyItems }) => {
+const GridPattern = ({ component, listHeaderItems, addRows, listBodyItems, handleRemoveRow, handleEdit }) => {
     const [newRow, SetNewRow] = useState({})
-    if (addRows) {
-        SetNewRow(() => {
-            var obj = {}
-            listHeaderItems.map(item => {
-                if (item.editField) {
-                    obj[item.name] = '';
-                }
-            })
-            return obj;
-        }
-        )
+    const values = []
+
+    // const addState = (key, initialValue) => {
+    //     if (values.indexOf(key) == -1) {
+    //         values.push(key)
+
+
+    //     }
+
+    // }
+
+    const initialState = listHeaderItems.reduce((acc, obj) => {
+        acc[obj.itemName] = '';
+        return acc;
+    }, {});
+
+    const [state, setState] = useState(initialState);
+
+
+    useEffect(() => {
+        const updatedState = listHeaderItems.reduce((acc, obj) => {
+            if (!state.hasOwnProperty(obj.itemName)) {
+                acc[obj.itemName] = '';
+            } else {
+                acc[obj.itemName] = state[obj.itemName];
+            }
+            return acc;
+        }, {});
+
+        setState(updatedState);
+    }, [listHeaderItems]);
+
+    const handleAddRow = () => {
+        addRows(state)
     }
 
     const handleChange = (e) => {
-        let { value, name } = e.target
+        const { name, value } = e.target;
+        setState((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
 
-        SetNewRow((prev) => ({ ...prev, [name]: value }))
-    }
+    };
 
     const handleFileChange = async (e) => {
         const file = e.target.files[0]
@@ -36,22 +63,30 @@ const GridPattern = ({ component, listHeaderItems, addRows, handleAddRow, listBo
         SetNewRow(prev => ({ ...prev, [name]: file }))
     }
 
+    const capitalizeFirstLetter = (string) => {
+        return string.charAt(0).toUpperCase() + string.substring(1);
+    }
     return (
         <>
-            <TableContainer className='mt-4' style={{ width: '95%', marginLeft: 'auto', marginRight: 'auto' }} component={'paper'}>
+            <TableContainer className='mt-4' style={{ width: '95%', marginLeft: 'auto', marginRight: 'auto' }} component={'Paper'}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         {listHeaderItems &&
                             <TableRow>
                                 {listHeaderItems.map(item => {
+                                    let itemUpper = capitalizeFirstLetter(item.itemName)
+
                                     return (
-                                        <TableCell align={item.align}>{item.name}</TableCell>
+                                        <TableCell align={item.align}>{itemUpper}</TableCell>
                                     )
                                 })}
+                                <TableCell align={'center'}>Actions</TableCell>
+
                             </TableRow>
+
                         }
                     </TableHead>
-                    {/* <TableBody>
+                    <TableBody>
                         {addRows &&
 
                             <TableRow
@@ -62,15 +97,17 @@ const GridPattern = ({ component, listHeaderItems, addRows, handleAddRow, listBo
                                         {listHeaderItems.map(item => {
                                             if (item.editField) {
                                                 if (item.fileField.is) {
+                                                    // addState(item.itemName, '')
                                                     return (
                                                         <TableCell align={item.align || ''}>
                                                             <input onChange={handleFileChange} type="file" name={item.itemName} accept={item.fileField.accept ? item.fileField.accept : ''} className='form-control' />
                                                         </TableCell>
                                                     )
                                                 } else {
+                                                    // addState(item.itemName, '')
                                                     return (
                                                         <TableCell align={item.align || ''}>
-                                                            <input value={newRow[item.name] || ''} onChange={handleChange} name={item.itemName} type='text' maxLength={item.editField.maxLength ? item.editField.maxLength : ''} className='form-control text-center' />
+                                                            <input value={state[item.name]} onChange={handleChange} name={item.itemName} type='text' maxLength={item.editField.maxLength ? item.editField.maxLength : ''} className='form-control text-center' />
                                                         </TableCell>
                                                     )
                                                 }
@@ -84,19 +121,46 @@ const GridPattern = ({ component, listHeaderItems, addRows, handleAddRow, listBo
 
                             </TableRow>
                         }
-                        {listBodyItems?.slice().reverse()?.map((item, index) => (
-                            <TableRow
-                                key={index}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
-                                {listHeaderItems.map((subItem, indexHeader) => {
-                                    return (
-                                        <TableCell key={indexHeader} align="center">{item[subItem.itemName]}</TableCell>
-                                    )
-                                })}
-                            </TableRow>
-                        ))}
-                    </TableBody> */}
+                        {listBodyItems &&
+                            <>
+                                {listBodyItems &&
+                                    <>
+                                        {listBodyItems.slice().reverse()?.map((item, index) => (
+                                            <RowCustomPattern
+                                                item={item}
+                                                index={index}
+                                                listBodyItems={listBodyItems}
+                                                listHeaderItems={listHeaderItems}
+                                                handleEdit={handleEdit}
+                                                handleRemoveRow={handleRemoveRow}
+                                                canEdit={true}
+                                            />
+                                        ))}
+                                    </>
+                                }
+
+
+
+
+                            </>}
+                        {/* {listBodyItems && <>
+                            {listBodyItems.slice().reverse()?.map((item, index) => (
+                                <TableRow
+                                    key={index}
+                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                >
+                                    {listHeaderItems.map((subItem, indexHeader) => {
+                                        return (
+                                            <TableCell key={indexHeader} align="center">{item[subItem.itemName]}</TableCell>
+                                        )
+                                    })}
+                                    {handleRemoveRow ? <TableCell onClick={() => handleRemoveRow(item.id)} id={item.id} align={'center'}>---</TableCell> : <TableCell id={item.id} align={'center'}>--</TableCell>}
+                                </TableRow>
+                            ))}
+
+
+                        </>} */}
+                    </TableBody>
                 </Table>
             </TableContainer>
         </>

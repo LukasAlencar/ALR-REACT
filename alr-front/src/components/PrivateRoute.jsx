@@ -4,7 +4,7 @@ import PageLogin from "./PageLogin";
 import { useNavigate } from "react-router-dom";
 
 function PrivateRoute({ children }) {
-    const { isAuth } = useContext(Context)
+    const { isAuth, setUserLogged } = useContext(Context)
     const [loading, setIsLoading] = useState(true)
     const navigate = useNavigate()
 
@@ -14,6 +14,7 @@ function PrivateRoute({ children }) {
             if (isAuth != true) {
                 return navigate('/')
             }
+
             setIsLoading(false)
 
         })()

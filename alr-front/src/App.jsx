@@ -38,7 +38,7 @@ function App() {
             <Route path="/" element={ <PageLogin />} /> {/* Maped */}
             <Route path="/register" element={<PageRegister />} /> {/* Maped */}
             {/* <Route path="/home" element={<PageHome />} />  Maped */}
-            <Route path="/calculadora" element={
+            <Route path="/calculator" element={
               <PrivateRoute>
                 <PageCalc /> {/* Maped */}
               </PrivateRoute>} />
