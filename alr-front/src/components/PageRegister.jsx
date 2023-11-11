@@ -10,6 +10,7 @@ import TrashIcon from './TrashIcon'
 import Loader from './Loader'
 import AlertTop from './AlertTop'
 import { render } from 'react-dom'
+import InputMask from 'react-input-mask'
 
 const PageRegister = () => {
     const [name, setName] = useState('')
@@ -26,7 +27,6 @@ const PageRegister = () => {
             email: '',
             password: '',
             enterpriseName: '',
-
         }
     )
 
@@ -34,10 +34,8 @@ const PageRegister = () => {
         debugger
         let {name, value, files} = e.target;        
         
-        
         setUser((prev) => ({...prev, [name]: name == 'user_img' ? files[0] : value}))
         console.log(user)
-
     }
 
     useEffect(()=>{
@@ -154,7 +152,7 @@ const PageRegister = () => {
                         <div className="fields row">
                             <div className="col-6">
                                 {!testValidate.enterprise && <span className='warning-span'>Campo obrigatório</span>}
-                                <input value={user.enterprise} onChange={handleChangeUser} name="cnpj" type="text" className={`form-control ${!testValidate.enterprise && 'wrong'}`} placeholder='CNPJ' id="cnpj" aria-describedby="CNPJ" />
+                                <InputMask mask={'99.999.999/9999-99'} value={user.cnpj} onChange={handleChangeUser} name="cnpj" type="text" className={`form-control ${!testValidate.enterprise && 'wrong'}`} placeholder='CNPJ' id="cnpj" aria-describedby="CNPJ" />
                             </div>
                         </div>
                         <div className="fields row">
