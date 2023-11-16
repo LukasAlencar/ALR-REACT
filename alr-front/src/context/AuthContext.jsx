@@ -10,27 +10,46 @@ export const AuthProvider = ({ children }) => {
     const [token, setToken] = useState('')
     const [userLogged, setUserLogged] = useState('')
     const [actualUser, setActualUser] = useState(
-        {name:'', email:'', img_user:'',}
+        {name:'', email:'', img_user:'', enterprise: '', status: '', cargo: '', id: ''}
     )
-    
+
     const navigate = useNavigate()
 
-    const handleActualUser = async (token) =>{
-        getApi(token)
-        
+
+    const handleActualUser = (name, email, img_user, enterprise, status, cargo, id) =>{
+        setActualUser({
+            name,
+            email,
+            img_user,
+            enterprise,
+            status,
+            cargo,
+            id,
+        })
     }
 
-    const getApi = async (auxToken) =>{
+    const getApi = async () =>{
+        let token = localStorage.getItem('token')
         let formData = new FormData()
-        formData.append('token', auxToken)
+        formData.append('token', token)
 
         await axios.post('https://api.alrtcc.com/verify-token/', formData).then(res => {
-            setIsAuth(true)
-            localStorage.setItem('userName', res.data.data.user.name)
-            localStorage.setItem('email', res.data.data.user.email)
-            localStorage.setItem('userImg', res.data.data.user.img_user)
+            let name = res.data.data.user.name;
+            let email = res.data.data.user.email;
+            let img_user = res.data.data.user.img_user;
+            let enterprise = res.data.data.user.enterprise;
+            let status = res.data.data.user.status;
+            let cargo = res.data.data.user.cargo;
+            let id = res.data.data.user.id;
 
-            console.log(res.data.data.user)
+
+            setIsAuth(true)
+
+            handleActualUser(name, email, img_user, enterprise, status, cargo, id)
+            localStorage.setItem('userName', name)
+            localStorage.setItem('email', email)
+            localStorage.setItem('userImg', img_user)
+
             navigate('/home')
         })
         .catch(()=>{})
@@ -41,7 +60,6 @@ export const AuthProvider = ({ children }) => {
         setToken(auxToken)
 
         getApi(auxToken)
-        console.log('foi')
         
         setIsLoading(false)
     }, [])
@@ -67,7 +85,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     return (
-        <Context.Provider value={{ isAuth, setIsAuth, token, userLogged, setUserLogged, actualUser, handleActualUser}}>
+        <Context.Provider value={{ isAuth, setIsAuth, token, userLogged, setUserLogged, actualUser,}}>
             {children}
         </Context.Provider>
     )

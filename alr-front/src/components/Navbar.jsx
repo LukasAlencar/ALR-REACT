@@ -11,7 +11,7 @@ import createAxiosInstance from '../settings/AxiosSettings'
 const Navbar = () => {
 
     const apiALR = createAxiosInstance(localStorage.getItem('token'))
-    const { setIsAuth, userLogged } = useContext(Context)
+    const { setIsAuth, actualUser } = useContext(Context)
     const [page, setPage] = useState('Home')
     const navigate = useNavigate()
     const imgUser = localStorage.getItem('userImg')
@@ -57,12 +57,12 @@ const Navbar = () => {
                             <li className="nav-item dropdown">
                                 <div className="iconUser d-flex align-items-center nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     {/* <FiUser/> */}
-                                    <img src={imgUser} style={{ width: 35, height: 35 }} alt="" />
+                                    <img src={actualUser.img_user} style={{ width: 35, height: 35 }} alt="" />
                                 </div>
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li className='text-center'>
-                                        <span className={page == 'profile' ? 'dropdown-item active' : 'dropdown-item'} style={{color:'gray', fontSize:13}}>{userName}</span>
-                                        <span className={page == 'profile' ? 'dropdown-item active' : 'dropdown-item'} style={{color:'gray', fontSize:13}}>{userEmail}</span>
+                                        <span className={page == 'profile' ? 'dropdown-item active' : 'dropdown-item'} style={{color:'gray', fontSize:13}}>{actualUser.name}</span>
+                                        <span className={page == 'profile' ? 'dropdown-item active' : 'dropdown-item'} style={{color:'gray', fontSize:13}}>{actualUser.email}</span>
                                     </li>
                                     <li><hr className="dropdown-divider" /></li>
                                     <li>

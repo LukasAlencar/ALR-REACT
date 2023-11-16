@@ -13,11 +13,15 @@ import axios from 'axios'
 import CircularProgress from '@mui/material/CircularProgress';
 import { Context } from '../context/AuthContext'
 
+import ModalPattern from './ModalPattern'
+
 const PageLogin = () => {
 
-    const { isAuth, setIsAuth, setUserLogged, handleActualUser } = useContext(Context)
+    const { isAuth, setIsAuth, setUserLogged } = useContext(Context)
 
     const [isLoading, setIsLoading] = useState(false)
+
+    const [modal, setModal] = useState(false)
 
     const navigate = useNavigate();
 
@@ -45,11 +49,9 @@ const PageLogin = () => {
                 const decodedToken = userLogged.key
                 localStorage.setItem('token', decodedToken)
                 localStorage.setItem('email', userLogged.email)
-                handleActualUser(decodedToken)
-                setUserLogged(userLogged)
                 navigate('/home')
             })
-            .catch((err) => console.log(err))
+            .catch(()=>{setModal(true)})
             .finally(() => { setIsLoading(false) });
 
     }
@@ -57,8 +59,20 @@ const PageLogin = () => {
     const handleRegister = () => {
         navigate('/register')
     }
+
+    const toggleModal = () =>{
+        setModal(!modal)
+    }
     return (
         <>
+            <ModalPattern 
+                toggleModal={()=>setModal(!modal)}
+                open={modal} 
+                textTitle={'User not Found'}
+                textBody={'Try Again'}
+                textBtn1={'Ok'}
+                handleClick1={()=>setModal(false)}
+            />
             {isLoading && <>
                 <div className='mask' />
                 <CircularProgress className='progress-rol' />

@@ -19,12 +19,11 @@ const LeftMenu = () => {
             <SubItemSidebar linkTo='create-contract' subItemName='Create' />
           </ItemSidebar>
           <ItemSidebar itemName="Enterprise">
-            <SubItemSidebar linkTo='view-enterprise' subItemName='View' />
+            {/* <SubItemSidebar linkTo='view-enterprise' subItemName='View' /> */}
             <SubItemSidebar linkTo='users-list' subItemName='Users List' />
           </ItemSidebar>
           <ItemSidebar itemName="Cost Center">
             <SubItemSidebar linkTo='create-cost-center' subItemName='Create' />
-            <SubItemSidebar linkTo='edit-cost-center' subItemName='Edit' />
           </ItemSidebar>
           <ItemSidebar itemName="Manufactures">
             <SubItemSidebar linkTo='create-owners' subItemName='View' />
@@ -34,8 +33,8 @@ const LeftMenu = () => {
           </ItemSidebar>
           <ItemSidebar linkTo='calculator' itemName="Calculator">
           </ItemSidebar>
-          <ItemSidebar linkTo={'dashboards'} itemName="Dashboard">
-          </ItemSidebar>
+          {/* <ItemSidebar linkTo={'dashboards'} itemName="Dashboard">
+          </ItemSidebar> */}
         </ul>
       </div>
     </div>

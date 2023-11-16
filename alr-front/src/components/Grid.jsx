@@ -28,6 +28,7 @@ import { AiOutlineCheck } from 'react-icons/ai'
 
 import CircularProgress from '@mui/material/CircularProgress';
 import RowCustom from './RowCustom';
+import ModalPattern from './ModalPattern';
 
 const downloadContract = (file) => {
     const a = document.createElement('a');
@@ -51,11 +52,15 @@ const GridComponent = () => {
             end_date: ""
         }]
     )
+    const [modal, setModal] = useState({
+        isShow: false,
+        textTitle: '',
+        textBody: '',
+    })
 
-    function getApi() {
+    async function getApi() {
         setIsLoading(true)
-
-        axios.get('https://api.alrtcc.com/contracts/')
+        axios.get('https://api.alrtcc.com/contracts?enterprise_id=6/')
             .then(res => {
                 setLicensesList(res.data)
             })
@@ -70,22 +75,30 @@ const GridComponent = () => {
     const handleAddLicense = async () => {
         setIsLoading(true);
 
-        const formData = new FormData()
-        formData.append('name', listAdd.product)
-        formData.append('file', listAdd.contract)
-        formData.append('status', listAdd.status)
-        formData.append('start_date', listAdd.activateDate)
-        formData.append('end_date', listAdd.expirationDate)
+        if (listAdd.product && listAdd.activateDate && listAdd.expirationDate && listAdd.product) {
+            const formData = new FormData()
+            formData.append('name', listAdd.product)
+            formData.append('file', listAdd.contract)
+            formData.append('status', listAdd.status)
+            formData.append('start_date', listAdd.activateDate)
+            formData.append('end_date', listAdd.expirationDate)
+            formData.append('enterprise', 6)
 
-        await axiosInstance.post('https://api.alrtcc.com/register-contract/', formData)
-            .then(res => {
-                console.log(res);
-            })
-            .catch(err => console.log(err))
-            .finally(() => {
-                setIsLoading(false);
-            })
-        getApi()
+
+            await axiosInstance.post('https://api.alrtcc.com/register-contract/', formData)
+                .then(() => {
+                    setModal((prev) => ({ ...prev, isShow: true, textTitle: 'Success!', textBody: 'Contract added successfully!' }))
+                })
+                .catch(() => setModal((prev) => ({ ...prev, isShow: true, textTitle: 'Error!', textBody: 'Contract not added!' })))
+                .finally(() => {
+                    setIsLoading(false);
+                })
+            getApi()
+            return;
+        }else{
+            setModal((prev) => ({ ...prev, isShow: true, textTitle: 'Error!', textBody: 'Fields Empty!' }))
+        }
+        setIsLoading(false);
     }
 
     const handleChange = (e) => {
@@ -130,8 +143,8 @@ const GridComponent = () => {
     const handleRemoveLicense = async (uuid) => {
         setIsLoading(true)
         await axios.delete(`https://api.alrtcc.com/contract/${uuid}`)
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
+            .then(()=> setModal((prev) => ({ ...prev, isShow: true, textTitle: 'Success!', textBody: 'Contract removed successfully!' })))
+            .catch(() => setModal((prev) => ({ ...prev, isShow: true, textTitle: 'Error!', textBody: 'Contract not removed!'})))
             .finally(() => {
                 setIsLoading(false);
             })
@@ -158,6 +171,15 @@ const GridComponent = () => {
 
     return (
         <>
+
+            <ModalPattern
+                toggleModal={() => setModal((prev) => ({ ...prev, isShow: false }))}
+                open={modal.isShow}
+                textTitle={modal.textTitle}
+                textBody={modal.textBody}
+                textBtn1={'Ok'}
+                handleClick1={() => setModal((prev) => ({ ...prev, isShow: false }))}
+            />
             {isLoading && <>
                 <div className='mask' />
                 <CircularProgress className='progress-rol' />
