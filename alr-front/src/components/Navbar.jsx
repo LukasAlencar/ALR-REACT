@@ -23,6 +23,9 @@ const Navbar = () => {
 
         setIsAuth(false)
         localStorage.removeItem('token')
+        localStorage.removeItem('userName')
+        localStorage.removeItem('userImg')
+
         navigate('/')
     }
 
@@ -39,11 +42,6 @@ const Navbar = () => {
                             <li className="nav-item">
                                 <Link to="/my-profile">
                                     <span onClick={() => { setPage('profile') }} className={page == 'profile' ? 'nav-link active' : 'nav-link '} href="">Meu Perfil</span>
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to="/reports">
-                                    <span href="" onClick={() => { setPage('report') }} className={page == 'report' ? 'nav-link active' : 'nav-link '}>Relátorios</span>
                                 </Link>
                             </li>
                             <li className="nav-item">
@@ -70,13 +68,6 @@ const Navbar = () => {
                                             <span onClick={() => { setPage('profile') }} className={page == 'profile' ? 'dropdown-item active' : 'dropdown-item'} href="#">Meu Perfil</span>
                                         </Link>
                                     </li>
-                                    <li><hr className="dropdown-divider" /></li>
-                                    <li>
-                                        <Link to="/reports">
-                                            <span onClick={() => { setPage('report') }} className={page == 'report' ? 'dropdown-item active' : 'dropdown-item'} href="#">Relátorios</span>
-                                        </Link>
-                                    </li>
-
                                     <li><hr className="dropdown-divider" /></li>
                                     <li>
                                         <span onClick={handleLogout} className="exit dropdown-item cursor-pointer" >Sair <span className='iconExit'><IoExitOutline /></span></span>

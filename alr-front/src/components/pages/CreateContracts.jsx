@@ -88,6 +88,7 @@ const CreateContracts = () => {
 
     return (
         <>
+            <div className='bg'></div>
             <Navbar />
             <div className='d-flex flex-1'>
                 <ModalALR handleDiscard={() => handleDiscard()} open={modal} toggleModal={() => handleToggleModal()} />

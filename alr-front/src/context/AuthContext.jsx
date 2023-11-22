@@ -29,11 +29,13 @@ export const AuthProvider = ({ children }) => {
     }
 
     const getApi = async () =>{
+        setIsLoading(true)
         let token = localStorage.getItem('token')
         let formData = new FormData()
         formData.append('token', token)
 
         await axios.post('https://api.alrtcc.com/verify-token/', formData).then(res => {
+
             let name = res.data.data.user.name;
             let email = res.data.data.user.email;
             let img_user = res.data.data.user.img_user;
@@ -42,7 +44,6 @@ export const AuthProvider = ({ children }) => {
             let cargo = res.data.data.user.cargo;
             let id = res.data.data.user.id;
 
-
             setIsAuth(true)
 
             handleActualUser(name, email, img_user, enterprise, status, cargo, id)
@@ -50,18 +51,18 @@ export const AuthProvider = ({ children }) => {
             localStorage.setItem('email', email)
             localStorage.setItem('userImg', img_user)
 
-            navigate('/home')
+            if(window.location.pathname == '/'){
+                navigate('/home')
+            }
+        
         })
-        .catch(()=>{})
+        .catch(()=>{}).finally(()=> setIsLoading(false))
     }
 
     useEffect(() => {
         const auxToken = localStorage.getItem('token');
         setToken(auxToken)
-
         getApi(auxToken)
-        
-        setIsLoading(false)
     }, [])
 
     // const handleLogin = async () => {
@@ -82,12 +83,14 @@ export const AuthProvider = ({ children }) => {
 
     if (loading) {
         return <div>Carregando</div>
+    }else{
+        return (
+            <Context.Provider value={{ isAuth, setIsAuth, token, userLogged, setUserLogged, actualUser, setActualUser, getApi}}>
+                {children}
+            </Context.Provider>
+        )
     }
 
-    return (
-        <Context.Provider value={{ isAuth, setIsAuth, token, userLogged, setUserLogged, actualUser,}}>
-            {children}
-        </Context.Provider>
-    )
+    
 }
 

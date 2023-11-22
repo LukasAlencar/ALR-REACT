@@ -16,7 +16,7 @@ import { AuthProvider, Context } from './context/AuthContext'
 import PrivateRoute from './components/PrivateRoute'
 import CostCenter from './components/pages/CostCenter'
 import ViewEnterprise from './components/pages/ViewEnterprise'
-
+import ChangePasswordDynamic from './components/pages/ChangePasswordDynamic/ChangePasswordDynamic'
 
 function App() {
 
@@ -34,67 +34,83 @@ function App() {
   return (
     <AnimatePresence mode='wait'>
       <AuthProvider>
-          <Routes>
-            <Route path="/" element={ <PageLogin />} /> {/* Maped */}
-            <Route path="/register" element={<PageRegister />} /> {/* Maped */}
-            {/* <Route path="/home" element={<PageHome />} />  Maped */}
-            <Route path="/calculator" element={
-              <PrivateRoute>
-                <PageCalc /> {/* Maped */}
-              </PrivateRoute>} />
-            <Route path="/dashboards" element={
-              <PrivateRoute>
-                <PageDashboard /> {/* Maped */}
-              </PrivateRoute>} />
-            <Route path="/my-profile" element={
-              <PrivateRoute>
-                <MyProfilePage /> {/* Maped */}
-              </PrivateRoute>} />
-            <Route path="/reports" element={
-              <PrivateRoute>
-                <ReportPage /> {/* Maped */}
-              </PrivateRoute>}></Route>
-            <Route path="/create-contract" element={
-              <PrivateRoute>
-                <CreateContracts /> {/* Maped */}
-              </PrivateRoute>}></Route>
-            <Route path="/edit-contract" element={
-              <PrivateRoute>
-                <EditContracts /> {/* Maped */}
-              </PrivateRoute>}></Route>
-            <Route path="/view-enterprise" element={
-              <PrivateRoute>
-                <ViewEnterprise />
-              </PrivateRoute>}></Route>
-            <Route path="/invite-users" element={
-              <PrivateRoute>
-                <ReportPage />
-              </PrivateRoute>}></Route>
-            <Route path="/users-list" element={
-              <PrivateRoute>
-                <UsersList /> {/* Maped */}
-              </PrivateRoute>}></Route>
-            <Route path="/create-cost-center" element={
-              <PrivateRoute>
-                <CostCenter />
-              </PrivateRoute>}></Route>
-            <Route path="/edit-cost-center" element={
-              <PrivateRoute>
-                <ReportPage />
-              </PrivateRoute>}></Route>
-            <Route path="/view-owners" element={
-              <PrivateRoute>
-                <ReportPage />
-              </PrivateRoute>}></Route>
-            <Route path="/view-licensing-rule" element={
-              <PrivateRoute>
-                <ReportPage />
-              </PrivateRoute>}></Route>
-            <Route path="/home" element={
-              <PrivateRoute>
-                <PageHome />
-              </PrivateRoute>} />
-          </Routes>
+        <Routes>
+          <Route path="/" element={<PageLogin />} /> {/* Maped */}
+          <Route path="/register" element={<PageRegister />} /> {/* Maped */}
+          {/* <Route path="/home" element={<PageHome />} />  Maped */}
+          <Route path="/calculator" element={
+            <PrivateRoute>
+              <PageCalc /> {/* Maped */}
+            </PrivateRoute>} />
+
+          <Route path="/dashboards" element={
+            <PrivateRoute>
+              <PageDashboard /> {/* Maped */}
+            </PrivateRoute>} />
+
+          <Route path="/my-profile" element={
+            <PrivateRoute>
+              <MyProfilePage /> {/* Maped */}
+            </PrivateRoute>} />
+
+          <Route path="/reports" element={
+            <PrivateRoute>
+              <ReportPage /> {/* Maped */}
+            </PrivateRoute>}></Route>
+
+          <Route path="/create-contract" element={
+            <PrivateRoute>
+              <CreateContracts /> {/* Maped */}
+            </PrivateRoute>}></Route>
+
+          <Route path="/edit-contract" element={
+            <PrivateRoute>
+              <EditContracts /> {/* Maped */}
+            </PrivateRoute>}></Route>
+
+          <Route path="/view-enterprise" element={
+            <PrivateRoute>
+              <ViewEnterprise />
+            </PrivateRoute>}></Route>
+
+          <Route path="/invite-users" element={
+            <PrivateRoute>
+              <ReportPage />
+            </PrivateRoute>}></Route>
+
+          <Route path="/users-list" element={
+            <PrivateRoute>
+              <UsersList /> {/* Maped */}
+            </PrivateRoute>}></Route>
+
+          <Route path="/create-cost-center" element={
+            <PrivateRoute>
+              <CostCenter />
+            </PrivateRoute>}></Route>
+
+          <Route path="/edit-cost-center" element={
+            <PrivateRoute>
+              <ReportPage />
+            </PrivateRoute>}></Route>
+
+          <Route path={`/change-password/:token`} caseSensitive={true} element={<ChangePasswordDynamic />}></Route>
+
+          <Route path="/view-owners" element={
+            <PrivateRoute>
+              <ReportPage />
+            </PrivateRoute>}></Route>
+
+          <Route path="/view-licensing-rule" element={
+            <PrivateRoute>
+              <ReportPage />
+            </PrivateRoute>}></Route>
+
+          <Route path="/home" element={
+            <PrivateRoute>
+              <PageHome />
+            </PrivateRoute>} />
+
+        </Routes>
       </AuthProvider>
     </AnimatePresence>
   )

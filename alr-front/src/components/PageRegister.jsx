@@ -140,7 +140,7 @@ const PageRegister = () => {
 
             await axios.post('https://api.alrtcc.com/create_enterprise/', formdata).then(() => {
                 navigate('/home');
-            }).catch((err) => console.log(err));
+            }).catch((err) => setModal((prev) => ({ ...prev, isShow: true, textTitle: 'Error!', textBody: 'Register Error!' })));
         }
         
     }

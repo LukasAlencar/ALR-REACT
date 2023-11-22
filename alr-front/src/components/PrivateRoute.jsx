@@ -11,8 +11,8 @@ function PrivateRoute({ children }) {
 
     useEffect(() => {
         (function authenticate() {
-            if (isAuth != true) {
-                return navigate('/')
+            if (!isAuth) {
+                navigate('/')
             }
 
             setIsLoading(false)

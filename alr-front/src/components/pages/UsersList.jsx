@@ -18,8 +18,10 @@ import { LiaClockSolid } from 'react-icons/lia'
 import { AiOutlineCheck } from 'react-icons/ai'
 
 // COMPONENTS
+
 import TrashIcon from '../TrashIcon'
 import CircularProgress from '@mui/material/CircularProgress';
+import ModalPattern from '../ModalPattern'
 
 //
 
@@ -48,6 +50,12 @@ const UsersList = () => {
   const { token, actualUser } = useContext(Context)
   const userLogged = localStorage.getItem('email')
   const apiALR = createAxiosInstance(token)
+
+  const [modal, setModal] = useState({
+    isShow: false,
+    textTitle: '',
+    textBody: '',
+  })
 
   useEffect(() => {
     async function getUsers() {
@@ -102,7 +110,6 @@ const UsersList = () => {
     formData.append('password', passAleatorio)
     formData.append('cargo', 'Colaborador')
 
-    console.log(user)
     await apiALR.post('https://api.alrtcc.com/register/', formData)
       .then(res => console.log(res))
       .catch((err) => console.log(err))
@@ -111,7 +118,6 @@ const UsersList = () => {
       })
 
     const res = await apiALR.get('https://api.alrtcc.com/users/?format=json');
-    console.log(res.data)
     setRows(res.data)
   }
 
@@ -123,8 +129,9 @@ const UsersList = () => {
   const handleDeleteUser = async (id) => {
     setIsLoading(true)
     await apiALR.delete('https://api.alrtcc.com/user/' + id)
-      .then(res => console.log(res))
-      .catch(err => console.log(err)).finally(() =>
+      .then(() => setModal((prev) => ({ ...prev, isShow: true, textTitle: 'Success!', textBody: 'Deleted!' })))
+      .catch(err => console.log(err))
+      .finally(() =>
         setIsLoading(false)
       )
     const res = await apiALR.get('https://api.alrtcc.com/users/?format=json');
@@ -139,6 +146,14 @@ const UsersList = () => {
 
   return (
     <>
+      <ModalPattern
+        toggleModal={() => setModal((prev) => ({ ...prev, isShow: false }))}
+        open={modal.isShow}
+        textTitle={modal.textTitle}
+        textBody={modal.textBody}
+        textBtn1={'Ok'}
+        handleClick1={() => setModal((prev) => ({ ...prev, isShow: false }))}
+      />
       {isLoading && <>
         <div className='mask' />
         <CircularProgress className='progress-rol' />
@@ -184,7 +199,6 @@ const UsersList = () => {
                 </TableRow>}
 
               {rows.slice().reverse()?.map((row) => {
-                console.log(row)
 
                 return (
                   <TableRow

@@ -17,7 +17,7 @@ import ModalPattern from './ModalPattern'
 
 const PageLogin = () => {
 
-    const { isAuth, setIsAuth, setUserLogged } = useContext(Context)
+    const { isAuth, setIsAuth, setUserLogged, setActualUser, getApi } = useContext(Context)
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -40,14 +40,17 @@ const PageLogin = () => {
     const handleLogin = async () => {
         setIsLoading(true)
         const formData = new FormData()
+        debugger
         formData.append('email', data.email)
         formData.append('password', data.password)
         await axios.post('https://api.alrtcc.com/login/', formData)
             .then((res) => {
                 setIsAuth(true)
                 const userLogged = jwtDecode(res.data.token)
+                debugger
                 const decodedToken = userLogged.key
                 localStorage.setItem('token', decodedToken)
+                getApi()
                 localStorage.setItem('email', userLogged.email)
                 navigate('/home')
             })
